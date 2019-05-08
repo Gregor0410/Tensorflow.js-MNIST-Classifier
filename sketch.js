@@ -1,9 +1,11 @@
 
 let xTrain;
 let yTrain;
+let xTest;
+let yTest;
 let scaleFactor = 10;
 let net;
-let trained = false;
+let score;
 function setup(){
     let canvas = createCanvas(28*scaleFactor,28*scaleFactor);
     canvas.parent('c');
@@ -11,10 +13,12 @@ function setup(){
     mnist = mnist.get();
     xTrain = mnist.slice(0,8000).map(x => x.input);
     yTrain = mnist.slice(0,8000).map(x => x.output);
+    xTest = mnist.slice(8000,).map(x => x.input);
+    yTest = mnist.slice(8000,).map(x => x.output);
     net = tf.sequential();
     net.add(tf.layers.dense({units:128,inputShape:[28*28],activation:'relu'}));
     net.add(tf.layers.dense({units:10, activation:'softmax'}));
-    net.compile({optimizer:'adam',metrics:['accuracy'],loss:'categoricalCrossentropy'});
+    net.compile({optimizer:'adam',metrics:['accuracy','accuracy'],loss:'categoricalCrossentropy'});
     background(0);
     displayRandomDigit();
 }
@@ -39,9 +43,13 @@ function displayRandomDigit(){
     updatePixels();
 }
 function train(){
-    if(!trained){
-        tXTrain=tf.tensor1d(xTrain).expandDims(0);
-        tYTrain=tf.tensor1d(yTrain).expandDims(0);
-        history = net.fit(tXTrain,tYTrain);
-    }
+    let tXTrain=tf.tensor2d(xTrain);
+    let tYTrain=tf.tensor2d(yTrain);
+    history = net.fit(tXTrain,tYTrain,{epochs:1}).then(console.log(history));
+}
+function test(){
+    let tXTest=tf.tensor2d(xTest);
+    let tYTest=tf.tensor2d(yTest);
+    score = net.evaluate(tXTest,tYTest);
+    console.log(score.map(v=>v.arraySync()));
 }
