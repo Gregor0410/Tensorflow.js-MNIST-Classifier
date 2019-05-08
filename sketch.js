@@ -3,7 +3,8 @@ let xTrain;
 let yTrain;
 let scaleFactor = 10
 function setup(){
-    createCanvas(28*scaleFactor,28*scaleFactor);
+    let canvas = createCanvas(28*scaleFactor,28*scaleFactor);
+    canvas.parent('c');
     //Convert data from mnist.js to format for network to learn
     mnist = mnist.get();
     xTrain = mnist.slice(0,8000).map(x => x.input);

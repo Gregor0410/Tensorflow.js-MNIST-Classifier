@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel='stylesheet' href='/style.css'>
         <script src="p5.min.js"></script>
         <script src ='/mnist/dist/mnist.js'></script>
         <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.1.2/dist/tf.min.js"></script>
         <script src='sketch.js'></script>
     </head>
     <body>
-        <div>
-        <button onclick="displayRandomDigit()">Display Random Digit</button>
-        </div>
+        <div id='nav'>
+        <nav>
+            <a href='javascript:void()' onclick="displayRandomDigit()">Display random digit</a>
+            <a href='javascript:void()' onclick="displayRandomDigit()">Train Network</a>
+         </nav>
+         </div>
+         <div id='c'></div>
+         <div id='p'>
+         <p>This is a neural network demonstration using tensorflow.js.
+             This example uses the MNIST dataset of handwritten digits. 
+             The network is a simple feedforward neural network, or multi-layer perceptron,
+             being trained using gradient descent.
+         </p>
+         </div>
     </body>
-
 </html>
