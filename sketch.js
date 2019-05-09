@@ -6,9 +6,11 @@ let yTest;
 let scaleFactor = 10;
 let net;
 let score;
+let outputBox;
 function setup(){
     let canvas = createCanvas(28*scaleFactor,28*scaleFactor);
     canvas.parent('c');
+    outputBox = document.getElementById('output')
     //Convert data from mnist.js to format for network to learn
     mnist = mnist.get();
     xTrain = mnist.slice(0,8000).map(x => x.input);
@@ -23,13 +25,11 @@ function setup(){
     displayRandomDigit();
 }
 
-function draw(){
-    //background(0);
-    //rect(50,50,50,50);
-}
-
 function displayRandomDigit(){
-    let digit = tf.tensor(random(xTrain).map(v=>v*255),[1,28,28,1]);
+    let input = random(xTest);
+    let digit = tf.tensor(input.map(v=>v*255),[1,28,28,1]);
+    let prediction = net.predict(tf.tensor(input).expandDims(0)).argMax(1).arraySync();
+    outputBox.innerHTML = "The network predicts: " + prediction.join();
     digit = tf.image.resizeNearestNeighbor(digit, [28*scaleFactor,28*scaleFactor]);
     digit = digit.flatten().arraySync();
     loadPixels()
@@ -42,10 +42,10 @@ function displayRandomDigit(){
     }
     updatePixels();
 }
-function train(){
+async function train(){
     let tXTrain=tf.tensor2d(xTrain);
     let tYTrain=tf.tensor2d(yTrain);
-    history = net.fit(tXTrain,tYTrain,{epochs:1}).then(console.log(history));
+    history = await net.fit(tXTrain,tYTrain,{epochs:1}).then(console.log(history));
 }
 function test(){
     let tXTest=tf.tensor2d(xTest);
