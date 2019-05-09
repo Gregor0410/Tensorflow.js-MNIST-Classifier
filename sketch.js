@@ -45,11 +45,12 @@ function displayRandomDigit(){
 async function train(){
     let tXTrain=tf.tensor2d(xTrain);
     let tYTrain=tf.tensor2d(yTrain);
-    history = await net.fit(tXTrain,tYTrain,{epochs:1}).then(console.log(history));
+    history = await net.fit(tXTrain,tYTrain,{epochs:1}).then(
+    (console.log(history)));
 }
-function test(){
+async function test(){
     let tXTest=tf.tensor2d(xTest);
     let tYTest=tf.tensor2d(yTest);
-    score = net.evaluate(tXTest,tYTest);
-    console.log(score.map(v=>v.arraySync()));
+    score = await net.evaluate(tXTest,tYTest).then(
+    console.log(score.map(v=>v.arraySync())));
 }
