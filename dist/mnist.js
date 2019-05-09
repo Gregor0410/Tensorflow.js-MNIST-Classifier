@@ -6,16 +6,16 @@ var size = 28;
 
 // raw data
 var raw = [
-  require('./digits/0.json.js').data,
-  require('./digits/1.json.js').data,
-  require('./digits/2.json.js').data,
-  require('./digits/3.json.js').data,
-  require('./digits/4.json.js').data,
-  require('./digits/5.json.js').data,
-  require('./digits/6.json.js').data,
-  require('./digits/7.json.js').data,
-  require('./digits/8.json.js').data,
-  require('./digits/9.json.js').data
+  require('./digits/0.json').data,
+  require('./digits/1.json').data,
+  require('./digits/2.json').data,
+  require('./digits/3.json').data,
+  require('./digits/4.json').data,
+  require('./digits/5.json').data,
+  require('./digits/6.json').data,
+  require('./digits/7.json').data,
+  require('./digits/8.json').data,
+  require('./digits/9.json').data
 ];
 
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(function (id) {
