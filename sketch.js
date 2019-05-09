@@ -5,7 +5,6 @@ let xTest;
 let yTest;
 let scaleFactor = 10;
 let net;
-let mnist;
 let score;
 let outputBox;
 function setup(){
